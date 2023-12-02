@@ -1,7 +1,6 @@
 use dotenvy::dotenv;
 use ethers::types::{H160, U256};
 use eyre::Result;
-use std::sync::Arc;
 use std::thread;
 use std::{env, time::Duration};
 
@@ -19,8 +18,8 @@ async fn main() -> Result<()> {
 
     let provider = Provider::<Http>::try_from(provider_url).expect("could not load provider");
 
-    let curr_block = provider.get_block_number().await?;
-    let client = Arc::new(provider.clone());
+    let curr_block = &provider.get_block_number().await?;
+    let client = &provider;
 
     let mut start_block: u64 = 14998510;
     let mut end_block: u64 = start_block + 2000;
@@ -60,7 +59,7 @@ async fn main() -> Result<()> {
             break;
         }
 
-        thread::sleep(Duration::from_millis(90));
+        thread::sleep(Duration::from_millis(50));
     }
 
     Ok(())
