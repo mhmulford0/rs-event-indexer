@@ -1,0 +1,20 @@
+[package]
+name = "rs-event-indexer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.release]
+opt-level = 3 # Maximum optimization
+debug = false # No debug info
+lto = true # Enable Link Time Optimization
+
+
+[dependencies]
+ethers = "2.0"
+dotenvy = "0.15.7"
+tokio = { version = "1", features = ["full"] }
+eyre = "0.6.9"
+hex = "0.4.3"
+
