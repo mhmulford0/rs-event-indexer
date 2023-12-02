@@ -19,7 +19,6 @@ async fn main() -> Result<()> {
     let provider = Provider::<Http>::try_from(provider_url).expect("could not load provider");
 
     let curr_block = &provider.get_block_number().await?;
-    let client = &provider;
 
     let mut start_block: u64 = 14998510;
     let mut end_block: u64 = start_block + 2000;
@@ -31,9 +30,9 @@ async fn main() -> Result<()> {
             .from_block(start_block)
             .to_block(end_block);
 
-        let logs = client.get_logs(&filter).await?;
+        let logs = &provider.get_logs(&filter).await?;
 
-        for log in &logs {
+        for log in logs {
             println!("tx hash {:?}", log.block_hash.unwrap());
             println!("from: {:#?}", H160::from(log.topics[1]));
             println!("to: {:#?}", H160::from(log.topics[2]));
